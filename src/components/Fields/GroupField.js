@@ -1,13 +1,11 @@
-// GroupField.jsx
 import React from 'react';
 import { useFormContext } from '../../context/FormContext';
 import { Box, Typography } from '@mui/material';
 import Tooltip from '@mui/material/Tooltip';
-import SubDynamicForm from './SubDynamicForm'; // Assuming DynamicForm is the main form rendering component
+import SubDynamicForm from './SubDynamicForm';
 
 const GroupField = ({ label, subParameters, validate, description, jsonKey }) => {
     const isRequired = validate && validate.required;
-//   const isImmutable = validate && validate.immutable;
     const {formatLabel} = useFormContext()
     label = formatLabel(label)
   return (

@@ -5,10 +5,12 @@ import {
   FormControlLabel,
   Box,
   Typography,
+  Tooltip
 } from "@mui/material";
 
-const SwitchField = ({ label, validate, jsonKey }) => {
+const SwitchField = ({ label, validate, jsonKey, description }) => {
   const { defaultValue } = validate;
+  const isRequired = validate && validate.required;
 
   const [checked, setChecked] = useState(defaultValue);
 
@@ -31,13 +33,31 @@ const SwitchField = ({ label, validate, jsonKey }) => {
     <Box display="flex" alignItems="center" marginBottom={2} marginTop={2}>
       <FormControlLabel
         control={
+            <>
           <MuiSwitch
             checked={checked}
             onChange={handleChange}
             color="secondary"
-          />
+            />
+            {isRequired && (
+              <span style={{ marginLeft: "8px" }}>
+                <span style={{ color: "red" }}>*</span>
+              </span>
+            )}
+            {description && (
+              <Tooltip title={description} arrow>
+                <span style={{ marginLeft: "8px" }}>
+                  <i
+                    className="fa-solid fa-circle-info fa-lg"
+                    style={{ color: "#b839b8" }}
+                  ></i>
+                </span>
+              </Tooltip>
+            )}
+            </>
+          
         }
-        label={<Typography variant="h6">{label}</Typography>}
+        label={<Typography variant="h6" marginLeft={1}>{label}</Typography>}
       />
     </Box>
   );

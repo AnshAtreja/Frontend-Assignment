@@ -1,13 +1,25 @@
 import React from 'react';
 import SubDynamicForm from './Fields/SubDynamicForm'
 import { Button } from '@mui/material';
-import { FormProvider, useFormContext } from '../context/FormContext';
+import { useFormContext } from '../context/FormContext';
 
 const DynamicForm = ({uiSchema}) => {
-  const {formData} = useFormContext()
+  const { formData } = useFormContext()
 
   const handleClick = () => {
-    console.log(formData)
+
+    const requiredFields = parsedUiSchema.filter(field => field.validate && field.validate.required);
+    const emptyRequiredFields = requiredFields.filter(field => {
+      const value = formData[field.jsonKey];
+      return value === undefined || value === ""; 
+    });
+  
+    if (emptyRequiredFields.length > 0) {
+      console.log("Please fill in all required fields before submitting.");
+      return;
+    }
+
+    console.log("Form submitted successfully:", formData);
   };
   
   let parsedUiSchema = [{}]
@@ -22,7 +34,6 @@ const DynamicForm = ({uiSchema}) => {
   }
 
   return (
-    <FormProvider>
     <div>
     <h1>Dynamic Form</h1>
     {parsedUiSchema ? (
@@ -37,6 +48,7 @@ const DynamicForm = ({uiSchema}) => {
       >
         Submit
       </Button>
+      <p>Output in console log</p>
       </>
       ) : (
         <div>
@@ -44,7 +56,7 @@ const DynamicForm = ({uiSchema}) => {
         </div>
       )}
   </div>
-    </FormProvider>
+
   );
 };
 

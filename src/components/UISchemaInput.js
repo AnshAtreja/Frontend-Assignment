@@ -1,10 +1,13 @@
 import React, { useState } from 'react';
 import { Typography, Button } from '@mui/material';
 import './customCSS/UISchemaInput.css';
+import { useFormContext } from '../context/FormContext';
 
 const UISchemaInput = ({ onSchemaChange }) => {
   const [uiSchema, setUISchema] = useState('');
   const textareaRef = React.createRef();
+
+  const { clearFormData } = useFormContext() 
 
   const handleInputChange = () => {
     const inputValue = textareaRef.current.value;
@@ -15,6 +18,7 @@ const UISchemaInput = ({ onSchemaChange }) => {
   const handleClearClick = () => {
     setUISchema('');
     onSchemaChange('');
+    clearFormData();
   };
 
   return (

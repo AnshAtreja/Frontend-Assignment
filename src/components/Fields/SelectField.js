@@ -56,6 +56,7 @@ const SelectField = ({ label, validate, value, description, jsonKey }) => {
           <Select
             value={selectedValue}
             onChange={handleChange}
+            fullWidth
             sx={{
               border: "1px solid rgb(184, 57, 184)",
               width: "58%",

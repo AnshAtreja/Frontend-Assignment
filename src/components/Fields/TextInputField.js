@@ -1,4 +1,3 @@
-// TextInputField.jsx
 import { useEffect } from "react";
 import { useFormContext } from "../../context/FormContext";
 import { Typography, Tooltip, Input, Box } from "@mui/material";
@@ -17,16 +16,18 @@ const TextInputField = ({
   label = formatLabel(label);
 
   const { formData, updateFormData } = useFormContext();
+  
+  const handleOnChange = (event) => {
+    const { value } = event.target;
+    updateFormData(jsonKey, value);
+  };
+  
   useEffect(() => {
     if (formData[jsonKey] === undefined) {
       updateFormData(jsonKey, "");
     }
   }, [jsonKey, formData, updateFormData]);
 
-  const handleOnChange = (event) => {
-    const { value } = event.target;
-    updateFormData(jsonKey, value);
-  };
 
   return (
     <Box display="flex" alignItems="center" marginBottom={2} marginTop={2}>
@@ -64,12 +65,12 @@ const TextInputField = ({
           required={isRequired}
           readOnly={isImmutable}
           onChange={handleOnChange}
+          fullWidth
           style={{
-            width: "99%",
-            padding: "8px",
-            borderRadius: "4px",
-            border: "1px solid rgb(184, 57, 184)",
-            marginRight: "60vh",
+            padding: '8px',
+            borderRadius: '4px',
+            border: '1px solid rgb(184, 57, 184)',
+            marginRight: '6vh',
           }}
         />
       </Box>

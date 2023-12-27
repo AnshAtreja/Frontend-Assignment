@@ -1,4 +1,3 @@
-// DynamicForm.jsx
 import React from 'react';
 import TextInputField from './TextInputField';
 import RadioField from './RadioField';
